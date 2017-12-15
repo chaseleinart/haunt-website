@@ -1,0 +1,38 @@
+(post
+ :title "Haunt 0.2 released"
+ :date (make-date* 2016 04 24)
+ :tags '("release")
+ :summary "Haunt 0.2 released"
+
+ (p [I am pleased to announce the release of Haunt version 0.2.  This
+release features new readers for the ]
+    (anchor "Texinfo" "http://www.gnu.org/software/texinfo/")
+    [ and ] (anchor "Skribe" "http://www.nongnu.org/skribilo/")
+    [ markup formats, an Info manual, small improvements to the Atom
+and blog builders, and bug fixes.])
+
+ (p [New reader modules:]
+    (ul (li (code [(haunt reader skribe)]))
+        (li (code [(haunt reader texinfo)]))))
+
+ (p [Bug fixes:]
+    (ul (li (anchor "builder: atom: Allow atom feeds to correctly set the blog prefix."
+                    "https://git.dthompson.us/haunt.git/commit/ed1602dc36444bcf1023926854a2cb01b5199e7e"))
+        (li (anchor "build: Allow building with Guile 2.2."
+                    "https://git.dthompson.us/haunt.git/commit/5373877f989689209616109b13fd471b2d093b5f"))
+        (li (anchor "post: Allow dashes in slugs."
+                    "https://git.dthompson.us/haunt.git/commit/a37c3cd58525be76705ea930551f3935a232790e"))
+        (li (anchor "serve: Catch exceptions when rebuilding site."
+                    "https://git.dthompson.us/haunt.git/commit/0d67128c3da6413546015fa9092a0017f50d46b9"))))
+
+ (p [A special thank you to Christopher Webber and Mathieu Lirzin for
+contributing to this release!])
+
+ (p [Source tarball: ]
+    (anchor "haunt-0.2.tar.gz"
+            "https://files.dthompson.us/haunt/haunt-0.2.tar.gz"))
+ (p [GPG signature: ]
+    (anchor "haunt-0.2.tar.gz.sig"
+            "https://files.dthompson.us/haunt/haunt-0.2.tar.gz.sig"))
+
+ (p [Happy haunting!]))
