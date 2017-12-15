@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright (C) 2015 David Thompson
+
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
+copy of the license is included in the section entitled "GNU Free
+Documentation License". -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>Haunt Reference Manual: Tutorial</title>
+
+<meta name="description" content="Haunt Reference Manual: Tutorial">
+<meta name="keywords" content="Haunt Reference Manual: Tutorial">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="Command_002dline-Interface.html#Command_002dline-Interface" rel="next" title="Command-line Interface">
+<link href="Building.html#Building" rel="prev" title="Building">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Tutorial"></a>
+<div class="header">
+<p>
+Next: <a href="Command_002dline-Interface.html#Command_002dline-Interface" accesskey="n" rel="next">Command-line Interface</a>, Previous: <a href="Installation.html#Installation" accesskey="p" rel="prev">Installation</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Tutorial-1"></a>
+<h2 class="chapter">3 Tutorial</h2>
+
+<p>The goal of this tutorial is to quickly create a barebones blog with
+Haunt in order to demonstrate the basic workflow and key concepts.
+</p>
+<p>First, create a directory for the new site:
+</p>
+<div class="example">
+<pre class="example">mkdir haunt-tutorial
+cd haunt-tutorial
+</pre></div>
+
+<p>Next, create the site configuration file <samp>haunt.scm</samp>.  This is
+where all of the code for building the website will go.
+</p>
+<p>Here&rsquo;s what a simple Haunt configuration looks like:
+</p>
+<div class="example">
+<pre class="example">(use-modules (haunt asset)
+             (haunt site)
+             (haunt builder blog)
+             (haunt builder atom)
+             (haunt reader skribe))
+
+(site #:title &quot;My First Haunt Site&quot;
+      #:domain &quot;example.com&quot;
+      #:default-metadata
+      '((author . &quot;Eva Luator&quot;)
+        (email  . &quot;eva@example.com&quot;))
+      #:readers (list skribe-reader)
+      #:builders (list (blog)
+                       (atom-feed)
+                       (atom-feeds-by-tag)))
+</pre></div>
+
+<p>Haunt represents the full configuration of the website using the
+<code>site</code> procedure.  Site objects specify things like the site
+title, the default metadata to use for posts, which markup formats are
+supported, and which builders are used to generate web pages.
+</p>
+<p>With the above code saved into the <samp>haunt.scm</samp> file, the next
+step is to create a <samp>posts</samp> directory and populate it with
+articles to publish.  Put the text below into a file named
+<samp>posts/hello.skr</samp>:
+</p>
+<div class="example">
+<pre class="example">(post
+ :title &quot;Hello, World!&quot;
+ :date (make-date* 2015 10 15)
+ :tags '(&quot;hello&quot;)
+
+ (h1 [Hello, World!])
+
+ (p [This is my very first Skribe document!]))
+</pre></div>
+
+<p>This is a
+<a href="http://www.nongnu.org/skribilo/doc/user-3.html#skribe-syntax">Skribe</a> document.  Skribe is one of the built-in languages that Haunt
+knows how to work with.  It&rsquo;s basically Scheme, but with support for
+writing literal text without quoting it all by enclosing it in square
+brackets.  The code above defines a post named &ldquo;Hello, World!&rdquo; with
+a publishing date of 2015-10-15, whose contents are just a single
+heading and a paragraph.
+</p>
+<p>To build the site, run <code>haunt build</code> to compile all of the
+HTML pages.  To view the results, run <code>haunt serve</code> and visit
+<a href="http://localhost:8080">http://localhost:8080</a> in a web browser.  <code>haunt serve</code>
+is a handy utility that serves the contents of the website using
+Guile&rsquo;s built-in HTTP server.  Since the blog builder was specified in
+<samp>haunt.scm</samp>, the default index page is a simple listing of all
+posts, which for now is a single post.  Clicking on the post title
+will display a page with only that post&rsquo;s contents.
+</p>
+<p>In addition to the basic blog builder, the <samp>haunt.scm</samp> file
+specifies two additional builders for Atom feeds.  The
+<code>atom-feed</code> builder creates a feed of all posts located at
+<a href="http://localhost:8080/feed.xml">http://localhost:8080/feed.xml</a>.  The <code>atom-feeds-by-tag</code>
+builder creates one feed for each unique tag specified in the post
+metadata.  There&rsquo;s only one tag right now, &ldquo;hello&rdquo;, and its feed is
+located at <a href="http://localhost/feeds/tags/hello.xml">http://localhost/feeds/tags/hello.xml</a>.
+</p>
+<p>Tweaking a post, rebuilding the site, and viewing the results in a web
+browser is the typical Haunt workflow.  However, having to run
+<code>haunt build</code> every after each edit is tedious.  To address
+this, run <code>haunt serve --watch</code>.  The Haunt web server, in
+addition to serving web pages, will now watch for changes to important
+files and automatically rebuild the site when they are edited.  This
+streamlines the workflow into an edit, save, view loop.
+</p>
+<p>Now that we&rsquo;ve introduced the basic utilities and concepts, continue
+reading this manual to learn more about Haunt&rsquo;s command-line and
+programming interfaces.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Command_002dline-Interface.html#Command_002dline-Interface" accesskey="n" rel="next">Command-line Interface</a>, Previous: <a href="Installation.html#Installation" accesskey="p" rel="prev">Installation</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

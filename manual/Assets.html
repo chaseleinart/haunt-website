@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright (C) 2015 David Thompson
+
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
+copy of the license is included in the section entitled "GNU Free
+Documentation License". -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>Haunt Reference Manual: Assets</title>
+
+<meta name="description" content="Haunt Reference Manual: Assets">
+<meta name="keywords" content="Haunt Reference Manual: Assets">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Programming-Interface.html#Programming-Interface" rel="up" title="Programming Interface">
+<link href="Builders.html#Builders" rel="next" title="Builders">
+<link href="Pages.html#Pages" rel="prev" title="Pages">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Assets"></a>
+<div class="header">
+<p>
+Next: <a href="Builders.html#Builders" accesskey="n" rel="next">Builders</a>, Previous: <a href="Pages.html#Pages" accesskey="p" rel="prev">Pages</a>, Up: <a href="Programming-Interface.html#Programming-Interface" accesskey="u" rel="up">Programming Interface</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Assets-1"></a>
+<h3 class="section">5.5 Assets</h3>
+
+<div class="example">
+<pre class="example">(use-modules (haunt asset))
+</pre></div>
+
+<p>Assets represent files on disk that should be copied verbatim to a
+site&rsquo;s output directory.  Common types of assets include CSS,
+JavaScript, images, and fonts.
+</p>
+<dl>
+<dt><a name="index-make_002dasset"></a>Scheme Procedure: <strong>make-asset</strong> <em><var>source</var> <var>target</var></em></dt>
+<dd><p>Create a new asset object.  The <var>source</var> and <var>target</var>
+arguments are file names that are relative to a site source and target
+directory, respectively (see <a href="Sites.html#Sites">Sites</a>).
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-asset_003f"></a>Scheme Procedure: <strong>asset?</strong> <em><var>object</var></em></dt>
+<dd><p>Return <code>#t</code> if <var>object</var> is an asset object.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-asset_002dsource"></a>Scheme Procedure: <strong>asset-source</strong> <em><var>asset</var></em></dt>
+<dd><p>Return the source file name for <var>asset</var>.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-asset_002dtarget"></a>Scheme Procedure: <strong>asset-target</strong> <em><var>asset</var></em></dt>
+<dd><p>Return the target file name for <var>asset</var>.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-install_002dasset"></a>Scheme Procedure: <strong>install-asset</strong> <em><var>asset</var> <var>prefix</var></em></dt>
+<dd><p>Install the source file of <var>asset</var> into the target directory
+within <var>prefix</var>.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-directory_002dassets"></a>Scheme Procedure: <strong>directory-assets</strong> <em><var>directory</var> <var>keep?</var> <var>dest</var></em></dt>
+<dd><p>Create a list of asset objects to be stored within <var>dest</var> for all
+files in <var>directory</var> that match <var>keep?</var>, recursively.
+</p></dd></dl>
+
+
+
+
+</body>
+</html>

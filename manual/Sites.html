@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Copyright (C) 2015 David Thompson
+
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
+copy of the license is included in the section entitled "GNU Free
+Documentation License". -->
+<!-- Created by GNU Texinfo 6.3, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>Haunt Reference Manual: Sites</title>
+
+<meta name="description" content="Haunt Reference Manual: Sites">
+<meta name="keywords" content="Haunt Reference Manual: Sites">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Concept-Index.html#Concept-Index" rel="index" title="Concept Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Programming-Interface.html#Programming-Interface" rel="up" title="Programming Interface">
+<link href="Posts.html#Posts" rel="next" title="Posts">
+<link href="Programming-Interface.html#Programming-Interface" rel="prev" title="Programming Interface">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="Sites"></a>
+<div class="header">
+<p>
+Next: <a href="Posts.html#Posts" accesskey="n" rel="next">Posts</a>, Up: <a href="Programming-Interface.html#Programming-Interface" accesskey="u" rel="up">Programming Interface</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Sites-1"></a>
+<h3 class="section">5.1 Sites</h3>
+
+<div class="example">
+<pre class="example">(use-modules (haunt site))
+</pre></div>
+
+<p>A site object defines all of the properties for a Haunt website: The
+site name, domain name, where blog posts are found, what post formats
+are understood, which procedures are used to build the site, where the
+output files are written to, etc.
+</p>
+<dl>
+<dt><a name="index-site"></a>Scheme Procedure: <strong>site</strong> <em>[#:title &quot;This Place is Haunted&quot;]        [#:domain &quot;example.com&quot;] [#:posts-directory &quot;posts&quot;]        [#:file-filter <code>default-file-filter</code>]        [#:build-directory &quot;site&quot;] [#:default-metadata '()]        [#:make-slug <code>post-slug</code>] [#:readers '()]        [#:builders '()]</em></dt>
+<dd><p>Create a new site object.  All arguments are optional:
+</p>
+<dl compact="compact">
+<dt><var>title</var></dt>
+<dd><p>The name of the site.
+</p>
+</dd>
+<dt><var>posts-directory</var></dt>
+<dd><p>The directory where posts are found.
+</p>
+</dd>
+<dt><var>file-filter</var></dt>
+<dd><p>A predicate procedure that returns <code>#f</code> when a post file should
+be ignored, and <code>#t</code> otherwise.  Emacs temporary files are
+ignored by default.
+</p>
+</dd>
+<dt><var>build-directory</var></dt>
+<dd><p>The directory that generated pages are stored in.
+</p>
+</dd>
+<dt><var>default-metadata</var></dt>
+<dd><p>An alist of arbitrary default metadata for posts whose keys are
+symbols.
+</p>
+</dd>
+<dt><var>make-slug</var></dt>
+<dd><p>A procedure generating a file name slug from a post.
+</p>
+</dd>
+<dt><var>readers</var></dt>
+<dd><p>A list of reader objects for processing posts.
+</p>
+</dd>
+<dt><var>builders</var></dt>
+<dd><p>A list of procedures for building pages from posts.
+</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+<dl>
+<dt><a name="index-site_003f"></a>Scheme Procedure: <strong>site?</strong> <em><var>obj</var></em></dt>
+<dd><p>Return <code>#t</code> if <var>obj</var> is a site object.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-site_002dtitle"></a>Scheme Procedure: <strong>site-title</strong> <em><var>site</var></em></dt>
+<dd><p>Return the title of <var>site</var>.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-site_002ddomain"></a>Scheme Procedure: <strong>site-domain</strong> <em><var>site</var></em></dt>
+<dd><p>Return the domain of <var>site</var>.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-site_002dposts_002ddirectory"></a>Scheme Procedure: <strong>site-posts-directory</strong> <em><var>site</var></em></dt>
+<dd><p>Return the posts directory for <var>site</var>.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-site_002dfile_002dfilter"></a>Scheme Procedure: <strong>site-file-filter</strong> <em><var>site</var></em></dt>
+<dd><p>Return the file filter procedure for <var>site</var>.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-site_002dbuild_002ddirectory"></a>Scheme Procedure: <strong>site-build-directory</strong> <em><var>site</var></em></dt>
+<dd><p>Return the build directory of <var>site</var>.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-site_002dmake_002dslug"></a>Scheme Procedure: <strong>site-make-slug</strong> <em><var>site</var></em></dt>
+<dd><p>Return the slug constructor for <var>site</var>.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-site_002dreaders"></a>Scheme Procedure: <strong>site-readers</strong> <em><var>site</var></em></dt>
+<dd><p>Return the list of reader procedures for <var>site</var>.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-site_002dbuilders"></a>Scheme Procedure: <strong>site-builders</strong> <em><var>site</var></em></dt>
+<dd><p>Return the list of builder procedures for <var>site</var>.
+</p></dd></dl>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Posts.html#Posts" accesskey="n" rel="next">Posts</a>, Up: <a href="Programming-Interface.html#Programming-Interface" accesskey="u" rel="up">Programming Interface</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Concept-Index.html#Concept-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>
